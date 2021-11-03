@@ -35,7 +35,6 @@ When you run [findID.py](findID.py), you will be prompted to type in the name of
 'Inzaghi 85': 239072,
 'Koeman 85': 247303,
 ```
-* You are now ready to use the [price calculator](salehistory.py)
 
 ### 2. Find buy prices based on sales history
 Open [salehistory.py](salehistory.py) and change line 11 and 12.
