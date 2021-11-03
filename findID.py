@@ -38,7 +38,11 @@ if numberPages >= 2:
         new_link = ""
         count = 0
         for j, c in enumerate(URL):
-            if c.isdigit() and count == 0:
+            if c.isdigit() and count < 3:
+                if count < 2:
+                    count += 1
+                    new_link += c
+                    continue
                 count += 1
                 new_link += str(i)
                 continue
@@ -53,8 +57,8 @@ if numberPages >= 2:
 
 # Finds all IDs and sends them into a text file
 playerCounter = 0
-for links in links:
-    res = requests.get(links)
+for link in links:
+    res = requests.get(link)
     time.sleep(1)
     soup = bs4.BeautifulSoup(res.content, features='lxml')
 
