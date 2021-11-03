@@ -96,7 +96,7 @@ for (name, ID) in players.items():
     for data in r_data:
         sales_list.append(data[1])
     sales_list = sales_list[400:]
-    date = r_data[0][0]  # First date in sales list
+    date = r_data[400][0]  # First date in sales list
     low_price, avg_price, high_price, median = calculations(sales_list)
     percent, avg = percent_of_data(sales_list)
     buyprice = buyprices(avg, percent[0])
