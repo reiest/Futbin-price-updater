@@ -9,7 +9,7 @@ from statistics import mode
 import statistics as st
 
 platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
-directory = "icons450"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+directory = "heroes"  # Change to directory you want to use (category, ex: icons, heros, silvers)
 txt = "playerIDs.txt"  # Don't need to change
 exc = "playerPrices.xlsx"  # Don't need to change
 
@@ -79,7 +79,7 @@ database = {}
 playercount = 0
 for (name, ID) in players.items():
     # Don't change this, you can be IP banned from futbin if you send too many requests within a time limit.
-    time.sleep(2)
+    time.sleep(1)
     tempdata = {}  # Temporary data
 
     # Gets player's sale data
