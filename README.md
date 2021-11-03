@@ -17,7 +17,10 @@ Go to [futbin](https://www.futbin.com/22/players)'s player page and choose your 
 
 ![Players page](fig/Futbinlink.png)
 
-Copy your URL and open [findID.py](findID.py)
+Copy your URL and open [findID.py](findID.py). Change your URL on page 18
+```python
+URL = 'https://www.futbin.com/22/players?page=1&xbox_price=200-450000&version=icons'
+```
 
 ## How it works
 

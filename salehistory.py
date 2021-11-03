@@ -8,10 +8,10 @@ import math
 from statistics import mode
 import statistics as st
 
-platform = "xone" # Xbox = xone,    playstation = ps,   pc = 
-directory = "heros" # Change to directory you want to use (category)
-txt = "playerIDs.txt" # Name of text file in directory
-exc = "playerprices.xlsx" # Name of excel file in directory (must exist)
+platform = "xone"  # Xbox = xone,    playstation = ps,   pc = pc
+directory = "heros"  # Change to directory you want to use (category)
+txt = "playerIDs.txt"  # Name of text file in directory
+exc = "playerprices.xlsx"  # Name of excel file in directory (must exist)
 
 filereference = open(directory+"/"+txt, "r")
 
@@ -78,11 +78,13 @@ def sales_over_average(pricelist, average, percentage):
 database = {}
 playercount = 0
 for (name, ID) in players.items():
-    time.sleep(2) # Don't change this, you can be IP banned from futbin if you send too many requests within a time limit.
-    tempdata = {} # Temporary data
+    # Don't change this, you can be IP banned from futbin if you send too many requests within a time limit.
+    time.sleep(2)
+    tempdata = {}  # Temporary data
 
     # Gets player's sale data
-    link = 'https://www.futbin.com/getPlayerChart?type=live-sales&resourceId=' + str(ID) + '&platform=' + platform
+    link = 'https://www.futbin.com/getPlayerChart?type=live-sales&resourceId=' + \
+        str(ID) + '&platform=' + platform
     r_sell = requests.get(link)
     r_data = r_sell.json()
 
@@ -90,10 +92,10 @@ for (name, ID) in players.items():
     print(str(playercount + 1) + "/" + str(len(players)), end=": ")
     print(name)
 
-    sales_list = [] # List of all sale prices, used for calculations
+    sales_list = []  # List of all sale prices, used for calculations
     for data in r_data:
         sales_list.append(data[1])
-    date = r_data[0][0] #First date in sales list
+    date = r_data[0][0]  # First date in sales list
     low_price, avg_price, high_price, median = calculations(sales_list)
     percent, avg = percent_of_data(sales_list)
     buyprice = buyprices(avg, percent[0])
@@ -105,7 +107,7 @@ for (name, ID) in players.items():
                      "Median": median, "Highest": high_price, "95% of sales": percent,
                      "Most frequent": frequent_saleprice, "Frequency": frequency,
                      "Occurency rate (+2.5%)": sales_over_avg, "First sale data": date})
-    database.update({tempdata['ID']: tempdata}) # Updates database
+    database.update({tempdata['ID']: tempdata})  # Updates database
     playercount += 1
 
 # Write data to excel
