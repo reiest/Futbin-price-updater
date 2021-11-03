@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ## How to use
 ### Only have to do this once
 Go to [futbin](https://www.futbin.com/22/players)
-![Players page](./fig/futbinlink.png "Choose your own filters based on which players you want")
+![Players page](./fig/futbinlink "Choose your own filters based on which players you want")
 
 ## How it works
 
