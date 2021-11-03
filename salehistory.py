@@ -9,7 +9,7 @@ from statistics import mode
 import statistics as st
 
 platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
-directory = "icons"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+directory = "icons450"  # Change to directory you want to use (category, ex: icons, heros, silvers)
 txt = "playerIDs.txt"  # Don't need to change
 exc = "playerprices.xlsx"  # Don't need to change
 
@@ -37,7 +37,7 @@ def calculations(pricelist):
 # Find 95% of all sales are between this interval
 def percent_of_data(pricelist):
     prices = sorted(pricelist, reverse=False)
-    percents = int(round(len(pricelist) * 0.05))
+    percents = int(round(len(pricelist) * 0.025))
     liste = prices[percents:-percents]
     low = min(liste)
     high = max(liste)
@@ -69,7 +69,7 @@ def sales_over_average(pricelist, average, percentage):
     per = int(average * percentage)
     new_list = []
     for i in pricelist:
-        if i > (avg + per):
+        if i > (per):
             new_list.append(i)
     compare = len(new_list) / len(pricelist)
     return compare
@@ -100,7 +100,7 @@ for (name, ID) in players.items():
     percent, avg = percent_of_data(sales_list)
     buyprice = buyprices(avg, percent[0])
     frequent_saleprice, frequency = most_frequent(sales_list)
-    sales_over_avg = sales_over_average(sales_list, avg_price, 0.025)
+    sales_over_avg = sales_over_average(sales_list, avg_price, 1.025)
 
     # Updates temporary data
     tempdata.update({"ID": ID, "Name": name, "Buyprice": buyprice, "Lowest": low_price, "Average": avg_price,
