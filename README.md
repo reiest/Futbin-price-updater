@@ -73,4 +73,4 @@ Explaination:
 * **Most frequent**: Player has been sold at this price the most. This can be set as your sell price but I want you to look at the *Occurency rate* before you sell.
 * **Frequency**: How many times it has been sold at the most frequent sale price.
 * **Occurency rate(2,5%)**: Shows how many percentage of sales happened at average times 2.5%. Example: ```average = 100'000``` then it will show how many percent of sales occured at 102.5k or above. This is useful to look at if you want to sell at a price higher than average. 
-* [First sale data](https://github.com/fskickz/Futbin-price-updater): 500 sales has been made since this date. This is useful to look at if has been a market crash since that date.
+* **First sale data**: 500 sales has been made since this date. This is useful to look at if has been a market crash since that date.
