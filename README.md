@@ -6,12 +6,15 @@ Begin by cloning the repository using your **console**:
 ```console
 git clone https://github.com/fskickz/Futbin-price-updater.git
 ````
-Install the required modules:
+#### Requirements
+* Python 3
+* All modules that can be installed by running this:
 ```console
 pip install -r requirements.txt
 ```
 
-## How to use
+
+# How to use
 ### 1. You only have to do this once
 Go to [futbin](https://www.futbin.com/22/players)'s player page and choose your own filters based on which players you want. You dont want to have too many players if you are going to learn all of their prices. I have selected all icons between 200 and 450'000 coins. My URL will look like this:
 
@@ -68,7 +71,7 @@ in your console
 
 When the program is done, you can open your excel file and enjoy your brand new price sheet.
 
-## Result and examples
+# Result and examples
 ![Sheet](fig/explainsheet.png)
 
 Explaination:
