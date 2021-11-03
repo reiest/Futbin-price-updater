@@ -11,7 +11,7 @@ import statistics as st
 platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
 directory = "icons450"  # Change to directory you want to use (category, ex: icons, heros, silvers)
 txt = "playerIDs.txt"  # Don't need to change
-exc = "playerprices.xlsx"  # Don't need to change
+exc = "playerPrices.xlsx"  # Don't need to change
 
 filereference = open(directory+"/"+txt, "r")
 
