@@ -13,7 +13,7 @@ ws.title = "Initiate"
 wb.save(filename=dirName+"/playerPrices.xlsx")
 
 # Find players from 1st page
-URL = 'https://www.futbin.com/22/players?page=1&xbox_price=200-450000&version=icons'
+URL = 'https://www.futbin.com/22/players?page=1&version=fut_heroes&sort=Player_Rating&order=asc'
 res = requests.get(URL)
 soup = bs4.BeautifulSoup(res.text, features='lxml')
 names = soup.select('td > div > div > a')
