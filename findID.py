@@ -2,10 +2,15 @@ import requests
 import bs4
 import time
 import os
+from openpyxl import Workbook
 
 dirName = input("Name of new directory: ")
 os.mkdir(dirName)
-file = open(dirName + "/playerID.txt", "w")
+file = open(dirName + "/playerIDs.txt", "w")
+wb = Workbook()
+ws = wb.active
+ws.title = "Initiate"
+wb.save(filename=dirName+"/playerPrices.xlsx")
 
 # Find players from 1st page
 res = requests.get(
