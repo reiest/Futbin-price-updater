@@ -9,8 +9,8 @@ from statistics import mode
 import statistics as st
 
 directory = "heros" # Change to directory you want to use (category)
-txt = "HeroIDs.txt" # Name of text file in directory
-exc = "HeroPrices.xlsx" # Name of excel file in directory (must exist)
+txt = "playerIDs.txt" # Name of text file in directory
+exc = "playerprices.xlsx" # Name of excel file in directory (must exist)
 
 filereference = open(directory+"/"+txt, "r")
 
