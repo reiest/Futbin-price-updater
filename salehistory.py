@@ -8,10 +8,10 @@ import math
 from statistics import mode
 import statistics as st
 
-platform = "xone"  # Xbox = xone,    playstation = ps,   pc = pc
-directory = "heros"  # Change to directory you want to use (category)
-txt = "playerIDs.txt"  # Name of text file in directory
-exc = "playerprices.xlsx"  # Name of excel file in directory (must exist)
+platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
+directory = "icons"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+txt = "playerIDs.txt"  # Don't need to change
+exc = "playerprices.xlsx"  # Don't need to change
 
 filereference = open(directory+"/"+txt, "r")
 

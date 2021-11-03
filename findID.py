@@ -4,8 +4,6 @@ import time
 import os
 from openpyxl import Workbook
 
-from salehistory import ID
-
 dirName = input("Name of new directory: ")
 os.mkdir(dirName)
 file = open(dirName + "/playerIDs.txt", "w")
