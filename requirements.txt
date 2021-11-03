@@ -1,3 +1,4 @@
+beautifulsoup4==4.10.0
 numpy==1.19.5
 openpyxl==3.0.6
 pandas==1.2.0
