@@ -13,8 +13,8 @@ pip install -r requirements.txt
 
 ## How to use
 ### Only have to do this once
-Go to [futbin](https://www.futbin.com/22/players)
-![Players page](./fig/futbinlink "Choose your own filters based on which players you want")
+Go to [futbin](https://www.futbin.com/22/players) and choose your own filters based on which players you want
+![Players page](fig/Futbinlink.png "Copy the URL")
 
 ## How it works
 
