@@ -31,8 +31,15 @@ def calculations(pricelist):
     lowest = min(pricelist)
     average = np.mean(pricelist)
     highest = max(pricelist)
-    median = st.median(pricelist)
-    return lowest, average, highest, median
+    return lowest, average, highest
+
+# Returns if the price is on uptrend or downtrend
+def trend(pricelist):
+    part1 = pricelist[:(len(pricelist)/2)]
+    part2 = pricelist[(len(pricelist)/2):]
+    avg1 = np.mean(part1)
+    avg2 = np.mean(part2)
+    return str(round(((avg2-avg1)/avg1)*100, 1))
 
 # Find 95% of all sales are between this interval
 def percent_of_data(pricelist):
@@ -96,7 +103,8 @@ for (name, ID) in players.items():
     for data in r_data:
         sales_list.append(data[1])
     date = r_data[0][0]  # First date in sales list
-    low_price, avg_price, high_price, median = calculations(sales_list)
+    low_price, avg_price, high_price = calculations(sales_list)
+    price_trend = trend(sales_list) + "%"
     percent, avg = percent_of_data(sales_list)
     buyprice = buyprices(avg, percent[0])
     frequent_saleprice, frequency = most_frequent(sales_list)
@@ -104,7 +112,7 @@ for (name, ID) in players.items():
 
     # Updates temporary data
     tempdata.update({"ID": ID, "Name": name, "Buyprice": buyprice, "Lowest": low_price, "Average": avg_price,
-                     "Median": median, "Highest": high_price, "95% of sales": percent,
+                     "Highest": high_price,"Trend": price_trend, "95% of sales": percent,
                      "Most frequent": frequent_saleprice, "Frequency": frequency,
                      "Occurency rate (+2.5%)": sales_over_avg, "First sale data": date})
     database.update({tempdata['ID']: tempdata})  # Updates database
