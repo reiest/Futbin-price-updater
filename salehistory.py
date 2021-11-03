@@ -8,6 +8,7 @@ import math
 from statistics import mode
 import statistics as st
 
+platform = "xone" # Xbox = xone,    playstation = ps,   pc = 
 directory = "heros" # Change to directory you want to use (category)
 txt = "playerIDs.txt" # Name of text file in directory
 exc = "playerprices.xlsx" # Name of excel file in directory (must exist)
@@ -81,7 +82,7 @@ for (name, ID) in players.items():
     tempdata = {} # Temporary data
 
     # Gets player's sale data
-    link = 'https://www.futbin.com/getPlayerChart?type=live-sales&resourceId=' + str(ID) + '&platform=xone'
+    link = 'https://www.futbin.com/getPlayerChart?type=live-sales&resourceId=' + str(ID) + '&platform=' + platform
     r_sell = requests.get(link)
     r_data = r_sell.json()
 
