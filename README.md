@@ -41,10 +41,10 @@ When you run [findID.py](findID.py), you will be prompted to type in the name of
 
 ### 2. Find buy prices based on sales history
 You have two options:
-* Use the [salehistory.py](salehistory.py) which will find the last 500 sales
+1. Use the [salehistory.py](salehistory.py) which will find the last 500 sales
     * It is great to use for players who is sold often
     * Ex: Hero's are good for this. The last 500 sales has happened in the last 1-2 days
-* Use the [sales100.py](sales100.py) which will find the last 100 sales
+2. Use the [sales100.py](sales100.py) which will find the last 100 sales
     * It is great for players who don't sell that often
     * Ex: Icon's are good for this. The last 500 sales can have happened in the last 15 days or so. To narrow down and find the newest sales, we find the last 100 sales.
 
