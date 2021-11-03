@@ -47,6 +47,7 @@ You have two options:
 * Use the [sales100.py](sales100.py) which will find the last 100 sales
     * It is great for players who don't sell that often
     * Ex: Icon's are good for this. The last 500 sales can have happened in the last 15 days or so. To narrow down and find the newest sales, we find the last 100 sales.
+
 Open [salehistory.py](salehistory.py) or [sales100.py](sales100.py) and change line 11 and 12.
 ```python
 platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
