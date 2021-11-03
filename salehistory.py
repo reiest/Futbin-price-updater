@@ -35,8 +35,9 @@ def calculations(pricelist):
 
 # Returns if the price is on uptrend or downtrend
 def trend(pricelist):
-    part1 = pricelist[:(len(pricelist)/2)]
-    part2 = pricelist[(len(pricelist)/2):]
+    lengde = int(len(pricelist)/2)
+    part1 = pricelist[:lengde]
+    part2 = pricelist[lengde:]
     avg1 = np.mean(part1)
     avg2 = np.mean(part2)
     return str(round(((avg2-avg1)/avg1)*100, 1))
@@ -78,8 +79,8 @@ def sales_over_average(pricelist, average, percentage):
     for i in pricelist:
         if i > (per):
             new_list.append(i)
-    compare = len(new_list) / len(pricelist)
-    return compare
+    compare = (len(new_list) / len(pricelist))*100
+    return str(compare)
 
 
 database = {}
@@ -108,7 +109,7 @@ for (name, ID) in players.items():
     percent, avg = percent_of_data(sales_list)
     buyprice = buyprices(avg, percent[0])
     frequent_saleprice, frequency = most_frequent(sales_list)
-    sales_over_avg = sales_over_average(sales_list, avg_price, 1.025)
+    sales_over_avg = sales_over_average(sales_list, avg_price, 1.025)+"%"
 
     # Updates temporary data
     tempdata.update({"ID": ID, "Name": name, "Buyprice": buyprice, "Lowest": low_price, "Average": avg_price,
