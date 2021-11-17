@@ -92,7 +92,7 @@ Explaination (will use Gomez (line 12) as example):
 * **-**: Splits the sheet in two, now comes the second part.
 * **Second part**: This is the same but for the last 100 sales. I use this often because its the most recent data.
 
-## Shortest explention / summary
+## Shortest explenation / summary
 If you dont have a group of players or want a new one:
 * Make your filter on futbin, copy link and paste on line 17 in [FindID.py](findID.py)
 * Run [FindID.py](findID.py)
