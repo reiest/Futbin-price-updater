@@ -54,6 +54,10 @@ def buyprices(average, high, low):
         buy = int((avg_avg * 0.9)//1000)
     else:
         buy = int(((low)*1.03)//1000)
+    if average >= 200000:
+        buy = int((avg_avg*0.95 - 10000)//1000)
+    if average >= 400000:
+        buy = int((avg_avg*0.95 - 15000)//1000)
     return int(buy)
 
 
