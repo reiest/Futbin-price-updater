@@ -27,7 +27,7 @@ Go to [futbin](https://www.futbin.com/22/players)'s player page and choose your 
 
 ![Players page](fig/Futbinlink.png)
 
-Copy your URL and open [findID.py](findID.py). Change your URL on line 17:
+Copy your URL and open [findID.py](findID.py). Change your URL on line 16:
 ```python
 URL = 'https://www.futbin.com/22/players?page=1&xbox_price=200-450000&version=icons'
 ```
@@ -81,7 +81,7 @@ When the program is done, it will open your sheet for you.
 In the lowest, average and highest, the lowest and highest 2% of sales are omitted beacuse they are misleading. It removes the deviation.
 
 Explaination (will use Gomez (line 12) as example):
-* **Buy Price**: The buy price is 90% of the average price. This is because we want to earn at least 5% after tax. 
+* **Buy Price**: The buy price is calculated based on fluctuation and the average price.
 * **Lowest**: The lowest sale.
 * **Average**: The average of all sales.
 * **Highest**: The highest sale.
@@ -95,9 +95,9 @@ Explaination (will use Gomez (line 12) as example):
 
 ## Shortest explenation / summary
 If you dont have a group of players or want a new one:
-* Make your filter on futbin, copy link and paste on line 17 in [FindID.py](findID.py)
+* Make your filter on futbin, copy link and paste on line 16 in [FindID.py](findID.py)
 * Run [FindID.py](findID.py)
 
 Every time you want to update players' prices:
-* Change line 9 and 10 in [sales.py](sales.py) to your platform and folder.
+* Change line 11, 12 and 13 in [sales.py](sales.py) to your platform and folder.
 *  Run [sales.py](sales.py)
