@@ -3,7 +3,6 @@ import bs4
 import time
 import os
 from openpyxl import Workbook
-import os
 
 dirName = input("Name of new directory: ")
 os.mkdir(dirName)
@@ -14,12 +13,14 @@ ws.title = "Initiate"
 wb.save(filename=dirName+"/playerPrices.xlsx")
 
 # Find players from 1st page
-URL = 'https://www.futbin.com/22/players?page=1&version=fut_heroes'
+URL = 'https://www.futbin.com/players?page=1&xbox_price=200-170000&version=icons'
 res = requests.get(URL)
 soup = bs4.BeautifulSoup(res.text, features='lxml')
 names = soup.select('td > div > div > a')
 
 # Number of pages to iterate through
+if URL.find("/22/") != 1:
+    URL = URL.replace("m/pl", "m/22/pl")
 try:
     pages = soup.select('.page-link')
     numberPages = int(pages[-2].get_text().strip())
@@ -60,7 +61,7 @@ if numberPages >= 2:
 playerCounter = 0
 for link in links:
     res = requests.get(link)
-    time.sleep(1)
+    time.sleep(0.5)
     soup = bs4.BeautifulSoup(res.content, features='lxml')
 
     # Player ID
@@ -78,7 +79,7 @@ for link in links:
     print(playerCounter, "/", len(links), ":", cardName)
 
 file.close()
+
 command = "sort "+dirName+"/playerIDs.txt -o "+dirName+"/playerIDs.txt"
 os.system(command)
-
 print("Check file")
