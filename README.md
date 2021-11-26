@@ -31,7 +31,7 @@ Copy your URL and open [findID.py](findID.py). Change your URL on line 17:
 ```python
 URL = 'https://www.futbin.com/22/players?page=1&xbox_price=200-450000&version=icons'
 ```
-Make sure it says /22/players... because it might be an error if not.
+~~Make sure it says /22/players... because it might be an error if not.~~ **Fixed**
 
 You are now ready to run [findID.py](findID.py) using the terminal/cmd:
 ```console
@@ -44,8 +44,8 @@ When you run [findID.py](findID.py), you will be prompted to type in the name of
 * Have a txt and excel file inside this folder
 * txt file should look like this:
 ```txt
-'Deco 85': 239027,
 'Cole 85': 255354,
+'Deco 85': 239027,
 'Guardiola 85': 243782,
 'Inzaghi 85': 239072,
 'Koeman 85': 247303,
@@ -54,16 +54,17 @@ When you run [findID.py](findID.py), you will be prompted to type in the name of
 ## 2. Find buy prices based on sales history (repeating step)
 This is the part you have to do every time you want to update your prices.
 
-Open [sales.py](sales.py) and change line 9 and 10.
+Open [sales.py](sales.py) and change line 11, 12 and 13.
 ```python
 platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
 directory = "icons450"  # Change to directory you want to use (category)
+want_pdf = 1 # Change to 1 if you want pdf with graphs, and 0 for no pdf
 ```
 The directory should be set to the folder you want to use. I want to find the price of icons. You can set this to the folder you just created if you want. The idea is that you can create multiple groups of players. **Ex:** Icons under 450k, all hero cards, silvers etc... If you want to make a new group, follow step 1. You only have to follow step 1 if you want a new group/filter.
 
 **Checklist:**
 * You have a folder with a excel and txt file
-* Changed line 9 and 10 to your needs
+* Changed line 11, 12 and 13 to your needs
 * Followed the installation
 * Your excel file is **NOT** open.
 
