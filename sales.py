@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import openpyxl
 
-platform = "xone"  # Xbox = xone,    Playstation = ps,   PC = pc
-directory = "heroes"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+platform = "ps"  # Xbox = xone,    Playstation = ps,   PC = pc
+directory = "tester"  # Change to directory you want to use (category, ex: icons, heros, silvers)
 want_pdf = 1 # Change to 1 if you want pdf with graphs, and 0 for no pdf
 txt = "playerIDs.txt"  # Don't need to change
 exc = "playerPrices.xlsx"  # Don't need to change
 pdf = "SaleGraphs.pdf" # Don't need to change
- 
+
 filereference = open(directory+"/"+txt, "r")
 
 # Make players directory and go through file to append the playersto the directory
@@ -54,32 +54,39 @@ def trend(pricelist):
 
 # Find buyprice (currently set buyprice to 10% lower than average, 5% profit after tax)
 def buyprices(average, high, fluct, low):
-    avg_avg = (average + high)/2
+    avg_avg = (average + (high*1000))/2
     buy = average*(0.9+fluct)
-    #buy = ((buy1 + buy2)/2) // 1000
-    if buy < int(low):
-        buy = int(low)
     if buy > average*0.95:
         buy = average*0.9
     if average >= 200000:
-        buy = int((avg_avg*0.95 - 10000)//1000)
+        buy = int((avg_avg*0.95 - 10000))
     if average >= 400000:
-        buy = int((avg_avg*0.95 - 15000)//1000)
+        buy = int((avg_avg*0.95 - 15000))
+    if average >= 600000:
+        buy = int((avg_avg*0.95 - 20000))
+    if buy < int(low) and int(low) < average*0.95:
+        buy = int(low)
+    if buy < int(low) and int(low) > average*0.95:
+        buy = int(low*0.95)
     return int(buy//1000)
 
 
 # Most sales happen in these 5 percent
-def most_sales_interval(avg, rng):
-    rng = int(rng)
+def most_sales_interval(avg, pricelist):
     count = 0
     commons = 0
-    percennn = int((avg*0.025)//250)*250
-    if percennn < 1000:
-        percennn = 1000
-    for i in range(min(sales_list[-rng:])+percennn,max(sales_list[-rng:])-percennn,250):
+    if avg < 100000:
+        percennn = int((avg*0.025)//250)*250
+        step = 250
+    else:
+        percennn = int((avg*0.025)//1000)*1000
+        step = 1000
+    if (max(pricelist)-min(pricelist)) < percennn*2:
+        percennn = int(percennn//1.75)
+    for i in range((min(pricelist)+percennn),(max(pricelist)-percennn),step):
         internalcount = 0
-        for j in range(-percennn,percennn+1,250):
-            internalcount += sales_list[-rng:].count(i + j)
+        for j in range(-percennn,percennn+1,step):
+            internalcount += pricelist.count(i + j)
         if internalcount > count:
             count = internalcount
             commons = i
@@ -104,6 +111,17 @@ def split_in_three(pricelist):
     pt3 = np.median(pricelist[-lengde:])
     return (int(pt1),int(pt2),int(pt3))
 
+def date_to_string(date, dates):
+    year = date.strftime("%Y")
+    month = date.strftime("%b")
+    nr = date.strftime("%d")
+    hr = date.strftime("%H")
+    dato = str(month) + " " + str(nr) + " " + str(year[2:] + ", " + str(hr))
+    for i in range(0, len(dates)):
+        if dato in dates[i]:
+            return i, (dates[i])[:-2]
+    return 0, (dates[0])[:-2]
+
 def timedifference(date):
     if date.find("21,") != -1:
         date = date.replace("21,", "2021")
@@ -117,7 +135,7 @@ def timedifference(date):
     now = datetime.datetime.now()
     diff = now - conve
     differnce_hrs = str(diff.days)+ " day(s) & "+ str(int(diff.seconds/3600)) + " hrs"
-    return differnce_hrs
+    return differnce_hrs, conve, diff
 
 def plotgraph(x,date,title, mean, buyprice):
     fig = plt.figure(figsize=(12,5))
@@ -156,8 +174,8 @@ def find_player_data(liste):
     potato = sorted_list[lengde]
     fluctuation = ((potato-avg_price)/avg_price)/2.2
     price_trend = trend(liste) + "%"
-    best_sale_interval = most_sales_interval(avg_price, len(liste))
-    buyprice = buyprices(avg_price, best_sale_interval[0][1]*1000, fluctuation, low_price)
+    best_sale_interval = most_sales_interval(avg_price, liste)
+    buyprice = buyprices(avg_price, best_sale_interval[0][1], fluctuation, low_price)
     sales_over_avg = sales_over_number(liste, best_sale_interval[0][1]*1000)+"%"
     three = split_in_three(liste)
     return low_price, avg_price, high_price, price_trend, buyprice, best_sale_interval, sales_over_avg, three
@@ -176,34 +194,35 @@ for (name, ID) in players.items():
     r_data = r_sell.json()
 
     sales_list = []  # List of all sale prices, used for calculations
+    dates = []
     for data in r_data:
         sales_list.append(data[1])
+        dates.append(data[0])
     date = r_data[0][0]  # First date in sales list
-    time1 = timedifference(date)
+    _, _, diff = timedifference(date)
+    delta = 8
+    if diff.days >= 3:
+        delta = 36
+    elif diff.days >= 1 and diff.days < 3:
+        delta = 14
+    else:
+        delta = 8
+    _, converted, _ = timedifference(r_data[-1][0])
+    xhoursago = converted - datetime.timedelta(hours=delta)
+    index, time2 = date_to_string(xhoursago,dates)
+    time1,_,_ = timedifference(dates[index])
+    sales_list = sales_list[index:]
+
     low_price, avg_price, high_price, price_trend, buyprice, best_sale_interval, sales_over_avg, three = find_player_data(sales_list)
-    
-    # Part two, only last 100 sales
-    sales_list100 = []  # List of all sale prices, used for calculations
-    for data in r_data[-100:]:
-        sales_list100.append(data[1])
-    date2 = r_data[-100][0]  # First date in sales list
-    time2 = timedifference(date2)
-    low_price1, avg_price1, high_price1, price_trend1, buyprice1, best_sale_interval1, sales_over_avg1, three1 = find_player_data(sales_list100)
-    rndm = "-"
 
     if want_pdf == 1:
-        plot1 = plotgraph(sales_list, time1, str(name),avg_price,buyprice)
-        plot2 = plotgraph(sales_list100, time2, str(name),avg_price1,buyprice1)
-        pp.savefig(plot1)
+        plot2 = plotgraph(sales_list, time1, str(name),avg_price,buyprice)
         pp.savefig(plot2)
 
     # Updates temporary data
     tempdata.update({"Buyprice": buyprice, "Lowest": low_price, "Average": avg_price,
                      "Highest": high_price,"Trend": price_trend, "Most sales int": best_sale_interval,
-                     "Occurency rate": sales_over_avg, "Median per 1/3": three, "Data from last": time1, "-": rndm,  
-                     "Buyprice (100)": buyprice1, "Lowest (100)": low_price1, "Average (100)": avg_price1,
-                     "Highest (100)": high_price1,"Trend (100)": price_trend1, "Most sales int (100)": best_sale_interval1,
-                     "Occurency rate (100)": sales_over_avg1, "Median per 1/3 (100)": three1, "Data from last(100)": time2})
+                     "Occurency rate": sales_over_avg, "Median per 1/3": three, "Data from last": time1, "# of sales": len(sales_list)})
     database.update({name: tempdata})  # Updates database
 
     # Prints the progress, how many players have been processed
