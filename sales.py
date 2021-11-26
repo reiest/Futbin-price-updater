@@ -117,8 +117,11 @@ def date_to_string(date, dates):
     nr = date.strftime("%d")
     hr = date.strftime("%H")
     dato = str(month) + " " + str(nr) + " " + str(year[2:] + ", " + str(hr))
+    dato2 = str(month) + " " + str(nr) + " " + str(year[2:] + ", " + str(hr+1))
     for i in range(0, len(dates)):
         if dato in dates[i]:
+            return i, (dates[i])[:-2]
+        if dato2 in dates[i]:
             return i, (dates[i])[:-2]
     return 0, (dates[0])[:-2]
 
