@@ -81,6 +81,8 @@ def most_sales_interval(avg, pricelist):
     else:
         percennn = int((avg*0.025)//1000)*1000
         step = 1000
+    if percennn < 1000:
+        percennn = 1000
     if (max(pricelist)-min(pricelist)) < percennn*2:
         percennn = int(percennn//1.75)
     for i in range((min(pricelist)+percennn),(max(pricelist)-percennn),step):
