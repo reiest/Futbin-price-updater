@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import openpyxl
 
-platform = "ps"  # Xbox = xone,    Playstation = ps,   PC = pc
-directory = "tester"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+platform = "xbox"  # Xbox = xone,    Playstation = ps,   PC = pc
+directory = "icons450"  # Change to directory you want to use (category, ex: icons, heros, silvers)
 want_pdf = 1 # Change to 1 if you want pdf with graphs, and 0 for no pdf
 txt = "playerIDs.txt"  # Don't need to change
 exc = "playerPrices.xlsx"  # Don't need to change
@@ -112,17 +112,16 @@ def split_in_three(pricelist):
     return (int(pt1),int(pt2),int(pt3))
 
 def date_to_string(date, dates):
-    year = date.strftime("%Y")
-    month = date.strftime("%b")
-    nr = date.strftime("%d")
-    hr = date.strftime("%H")
-    dato = str(month) + " " + str(nr) + " " + str(year[2:] + ", " + str(hr))
-    dato2 = str(month) + " " + str(nr) + " " + str(year[2:] + ", " + str(hr+1))
-    for i in range(0, len(dates)):
-        if dato in dates[i]:
-            return i, (dates[i])[:-2]
-        if dato2 in dates[i]:
-            return i, (dates[i])[:-2]
+    for i in range(0, 6):
+        dater = date + datetime.timedelta(hours=i)
+        year = dater.strftime("%Y")
+        month = dater.strftime("%b")
+        nr = dater.strftime("%d")
+        hr = dater.strftime("%H")
+        dato = str(month) + " " + str(nr) + " " + str(year[2:] + ", " + str(hr))
+        for i in range(0, len(dates)):
+            if dato in dates[i]:
+                return i, (dates[i])[:-2]
     return 0, (dates[0])[:-2]
 
 def timedifference(date):
