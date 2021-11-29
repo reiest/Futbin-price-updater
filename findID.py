@@ -3,6 +3,7 @@ import bs4
 import time
 import os
 from openpyxl import Workbook
+import unicodedata
 
 dirName = input("Name of new directory: ")
 os.mkdir(dirName)
@@ -57,6 +58,15 @@ if numberPages >= 2:
             link = "https://www.futbin.com" + link
             links.append(link)
 
+def remove_accents(playername):
+    try:
+        playername = unicode(playername, 'utf-8')
+    except NameError: 
+        pass
+    playername = unicodedata.normalize('NFD', playername).encode('ascii', 'ignore').decode("utf-8")
+    return str(playername)
+
+
 # Finds all IDs and sends them into a text file
 playerCounter = 0
 for link in links:
@@ -68,6 +78,7 @@ for link in links:
     player_id = soup.find('div', {'id': 'page-info'}).get('data-player-resource')
     cName = soup.select('.pcdisplay-name')
     cardName = cName[0].getText().strip()
+    cardName = remove_accents(cardName)
     rt = soup.select('.pcdisplay-rat')
     rating = rt[0].getText().strip()
 
