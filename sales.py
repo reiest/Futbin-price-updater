@@ -9,7 +9,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 import openpyxl
 
 platform = "xbox"  # Xbox = xone,    Playstation = ps,   PC = pc
-directory = "icons450"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+directory = "heroes"  # Change to directory you want to use (category, ex: icons, heros, silvers)
 want_pdf = 1 # Change to 1 if you want pdf with graphs, and 0 for no pdf
 txt = "playerIDs.txt"  # Don't need to change
 exc = "playerPrices.xlsx"  # Don't need to change

@@ -1,3 +1,5 @@
+# Futbin have upgraded their security! DOES NOT WORK ANYMORE
+
 # Futbin Price Finder
 A price finder which gets the last 500 sales of players and calculate buy prices, and looks at other data which is useful
 
