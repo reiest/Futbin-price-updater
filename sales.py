@@ -1,4 +1,4 @@
-import requests
+import json
 import pandas as pd
 import numpy as np
 import time
@@ -7,10 +7,13 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import openpyxl
+import cloudscraper
 
-platform = "xbox"  # Xbox = xone,    Playstation = ps,   PC = pc
-directory = "heroes"  # Change to directory you want to use (category, ex: icons, heros, silvers)
-want_pdf = 1 # Change to 1 if you want pdf with graphs, and 0 for no pdf
+scraper = cloudscraper.create_scraper()
+
+platform = "ps"  # Xbox = xone,    Playstation = ps,   PC = pc
+directory = "2"  # Change to directory you want to use (category, ex: icons, heros, silvers)
+want_pdf = 0 # Change to 1 if you want pdf with graphs, and 0 for no pdf
 txt = "playerIDs.txt"  # Don't need to change
 exc = "playerPrices.xlsx"  # Don't need to change
 pdf = "SaleGraphs.pdf" # Don't need to change
@@ -194,8 +197,8 @@ for (name, ID) in players.items():
     # Gets player's sale data
     link = 'https://www.futbin.com/getPlayerChart?type=live-sales&resourceId=' + \
         str(ID) + '&platform=' + platform
-    r_sell = requests.get(link)
-    r_data = r_sell.json()
+    r_sell = scraper.get(link).text
+    r_data = json.loads(r_sell)
 
     sales_list = []  # List of all sale prices, used for calculations
     dates = []
@@ -249,7 +252,6 @@ df.to_excel(writer, sheet_name=date)
 writer.save()
 if want_pdf == 1:
     pp.close()
-
 print("Done, opening excel file...")
 command = "open "+directory+"/"+exc
 os.system(command)
