@@ -1,4 +1,4 @@
-import requests
+import cloudscraper
 import bs4
 import time
 import os
@@ -13,10 +13,12 @@ ws = wb.active
 ws.title = "Initiate"
 wb.save(filename=dirName+"/playerPrices.xlsx")
 
+scraper = cloudscraper.create_scraper()
+
 # Find players from 1st page
-URL = 'https://www.futbin.com/players?page=1&xbox_price=200-170000&version=icons'
-res = requests.get(URL)
-soup = bs4.BeautifulSoup(res.text, features='lxml')
+URL = 'https://www.futbin.com/22/players?page=1&ps_price=2000-20000&league=13&version=gold_rare'
+res = scraper.get(URL).text
+soup = bs4.BeautifulSoup(res, features='lxml')
 names = soup.select('td > div > div > a')
 
 # Number of pages to iterate through
@@ -50,8 +52,8 @@ if numberPages >= 2:
                 new_link += str(i)
                 continue
             new_link += c
-        res = requests.get(new_link)
-        soup = bs4.BeautifulSoup(res.text, features='lxml')
+        res = scraper.get(new_link).text
+        soup = bs4.BeautifulSoup(res, features='lxml')
         names = soup.select('td > div > div > a')
         for name in names:
             link = name.get('href')
@@ -70,9 +72,9 @@ def remove_accents(playername):
 # Finds all IDs and sends them into a text file
 playerCounter = 0
 for link in links:
-    res = requests.get(link)
+    res = scraper.get(link).text
     time.sleep(0.5)
-    soup = bs4.BeautifulSoup(res.content, features='lxml')
+    soup = bs4.BeautifulSoup(res, features='lxml')
 
     # Player ID
     player_id = soup.find('div', {'id': 'page-info'}).get('data-player-resource')
